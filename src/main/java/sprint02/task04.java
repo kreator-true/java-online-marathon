@@ -7,70 +7,7 @@ import java.util.stream.Collectors;
 
 public class task04 {
     public static void main(String[] args) {
-        List<Employee> list = new ArrayList();
-        list.add(new Employee("Ivan", 10, new BigDecimal(3000.0D)));
-        list.add(new Manager("Petro", 9, new BigDecimal(3000.0D), 1.5D));
-        list.add(new Employee("Stepan", 8, new BigDecimal(4000.0D)));
-        list.add(new Employee("Andriy", 7, new BigDecimal(3500.0D)));
-        list.add(new Employee("Ihor", 5, new BigDecimal(3500.0D)));
-        list.add(new Manager("Vasyl", 8, new BigDecimal(2000.0D), 2.0D));
 
-        Employee emp = new Employee("Ivan", 10, new BigDecimal(3000.00));
-        Employee emp4 = new Employee("Max", 9, new BigDecimal(3000.00));
-        Employee emp5 = new Employee("Danil", 7, new BigDecimal(3000.00));
-        Employee emp2 = new Employee("Anna", 2, new BigDecimal(1000.00));
-
-        Manager emp1 = new Manager("Vania", 4, new BigDecimal(1200.00), 1.6);
-        Manager emp10 = new Manager("Vania", 6, new BigDecimal(1200.00), 1.6);
-        Manager emp6 = new Manager("Boris", 5, new BigDecimal(1200.00), 1.6);
-        Manager emp3 = new Manager("Egor", 1, new BigDecimal(1000.00), 1.1);
-        Manager emp7 = new Manager("Anna", 10, new BigDecimal(1000.00), 1.1);
-
-
-        List<Employee> workers = List.of(emp1, emp, emp2, emp3, emp4, emp5, emp7, emp6, emp, emp, emp10);
-        MyUtils2  my = new MyUtils2();
-
-        print(my.largestEmployees(list));
-        print(my.largestEmployees(workers));
-
-        print(my.largestEmployees(null));
-        print(my.largestEmployees(new ArrayList<>()));
-
-        print(my.largestEmployees(List.of(emp1, emp1, emp1)));
-        print(my.largestEmployees(List.of(emp, emp4, emp5)));
-        print(my.largestEmployees(List.of(emp1)));
-        System.out.println(checkUniqueAll());
-    }
-
-    public static boolean checkUniqueAll() {
-        List<Employee> originList = new ArrayList();
-        originList.add(new Employee("Ivan", 10, new BigDecimal(3000.0D)));
-        originList.add(new Manager("Petro", 9, new BigDecimal(3000.0D), 1.5D));
-        originList.add(new Employee("Stepan", 8, new BigDecimal(4000.0D)));
-        originList.add(new Employee("Andriy", 7, new BigDecimal(3500.0D)));
-        originList.add(new Employee("Ihor", 5, new BigDecimal(3500.0D)));
-        originList.add(new Manager("Vasyl", 8, new BigDecimal(2000.0D), 2.0D));
-        List<Employee> expected = new ArrayList();
-        expected.add(new Employee("Stepan", 8, new BigDecimal(4000.0D)));
-        expected.add(new Employee("Ivan", 10, new BigDecimal(3000.0D)));
-        expected.add(new Manager("Petro", 9, new BigDecimal(3000.0D), 1.5D));
-        List actual = null;
-
-        try {
-            actual = (new MyUtils2()).largestEmployees(originList);
-        } catch (Exception var4) {
-            return false;
-        }
-
-        return (new HashSet(expected)).equals(new HashSet(actual));
-    }
-
-    public static void print(List<?> list){
-        if(list == null) {System.out.println("NULL"); return;};
-        if(list.isEmpty()) {System.out.println("isEmpty"); return;};
-
-        list.stream().forEach(System.out::println);
-        System.out.println("___________________________________________________________________");
     }
 }
 
