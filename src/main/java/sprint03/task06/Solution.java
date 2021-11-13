@@ -5,8 +5,28 @@ import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
-        testSorted();
+        System.out.println(sortedByTest_1());
 
+    }
+    static boolean sortedByTest_1() {
+        String[] expected = { "First name: John, Last name: Brown, Address: Address #1",
+                "First name: John, Last name: Taylor, Address: Address #1",
+                "First name: Karen, Last name: Davis, Address: Address #2",
+                "First name: Susan, Last name: Brown, Address: Address # 4" };
+        String[] actual = new String[4];
+        AddressBook addressBook = new AddressBook(4);
+        addressBook.create("John", "Brown", "Address #1");
+        addressBook.create("Susan", "Brown", "Address # 4");
+        addressBook.create("Karen", "Davis", "Address #2");
+        addressBook.create("John", "Taylor", "Address #1");
+        addressBook.sortedBy(SortOrder.ASC);
+        int counter = 0;
+        for (Object record : addressBook) {
+            actual[counter++] = record.toString();
+        }
+        System.out.println(Arrays.toString(expected));
+        System.out.println(Arrays.toString(actual));
+        return Arrays.equals(expected, actual);
     }
 
     public static void  testSorted(){
@@ -102,12 +122,10 @@ class AddressBook implements Iterable {
     }
 
     public void sortedBy(SortOrder order) {
-        Comparator compareByAddress = Comparator.comparing(NameAddressPair::getAddress);
+        Comparator comparator = new SortedByPerson();
 
-        if(order == SortOrder.ASC) Collections.sort(nameAddressPairList, compareByAddress);
-        else Collections.sort(nameAddressPairList, compareByAddress.reversed());
-
-
+        if(order == SortOrder.ASC) Collections.sort(nameAddressPairList, comparator);
+        else Collections.sort(nameAddressPairList, comparator.reversed());
     }
 
     public Iterator iterator() {
@@ -140,6 +158,16 @@ class AddressBook implements Iterable {
         }
     }
 
+    private class SortedByPerson implements Comparator<NameAddressPair>{
+
+        @Override
+        public int compare(NameAddressPair o1, NameAddressPair o2) {
+            int result = o1.getPerson().getFirstName().compareTo(o2.getPerson().getFirstName());
+            if(result == 0) return o1.getPerson().getLastName().compareTo(o2.getPerson().getLastName());
+            return result;
+        }
+    }
+
     private static class NameAddressPair{
         private final Person person;
         private String address;
@@ -162,6 +190,7 @@ class AddressBook implements Iterable {
             return true;
         }
 
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -182,6 +211,14 @@ class AddressBook implements Iterable {
             private Person(String firstName, String lastName) {
                 this.firstName = firstName;
                 this.lastName = lastName;
+            }
+
+            public String getFirstName() {
+                return firstName;
+            }
+
+            public String getLastName() {
+                return lastName;
             }
 
 
