@@ -25,6 +25,9 @@ class MyUtils extends ArrayList<String>{
                 result.put(key, list);
             }
         }
+        /*for(var entry : phones.entrySet()){
+            result.computeIfAbsent(entry.getValue(), k -> new ArrayList<>()).add(entry.getKey());
+        }*/
         return result;
         /*return phones.entrySet().stream().filter(p -> p.getValue() != null)
                 .collect(Collectors.groupingBy(Map.Entry::getValue, Collectors.mapping(Map.Entry::getKey, Collectors.toList())));*/

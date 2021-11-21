@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 
 class Utility {
-    public static <T extends Person> void sortPeople(T[] people, Comparator comparator){
+    public static <T extends Person> void sortPeople(T[] people, Comparator<? super T> comparator){
         Arrays.sort(people, comparator);
     }
 }
