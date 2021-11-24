@@ -20,5 +20,4 @@ class CheckingAccount {
             throw new InsufficientAmountException(needs);
         }
     }
-    // some other code
 }

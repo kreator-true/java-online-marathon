@@ -1,6 +1,6 @@
 package sprint04.task05;
 
-public class Array <T> {
+class Array <T> {
     private T[] array;
 
     public Array(T[] array) {
