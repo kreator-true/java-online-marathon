@@ -25,7 +25,7 @@ class Person {
         this.name = name;
     }
 
-    DecisionMethod goShopping = (product, percent) -> product == null ? percent > 10 : product.equals("product1") || percent > 10;
+    DecisionMethod goShopping = (product, percent) -> "product1".equals(product) && percent > 10;
 }
 
 interface DecisionMethod {
