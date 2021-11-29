@@ -19,6 +19,6 @@ class User {
     }
 
     int getMaxValueByCondition(Predicate<Integer> predicate) {
-        return getFilterdValue((integers, integerPredicate) -> MyUtils.findMaxByCondition(integers, integerPredicate), predicate);
+        return getFilterdValue(MyUtils::findMaxByCondition, predicate);
     }
 }
