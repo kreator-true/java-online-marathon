@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MyUtils {
-    private static final String URL = "jdbc:mysql://localhost:3306/sprint10";
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:h2:tcp://localhost/~/test";
+    private static final String JDBC_DRIVER = "org.h2.Driver";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "";
 
     private Connection connection;
     private Statement statement;
@@ -16,12 +16,8 @@ class MyUtils {
     private ResultSet resultSet;
 
     public Connection createConnection() throws SQLException {
-        try {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        DriverManager.registerDriver(new org.h2.Driver());
+        connection = DriverManager.getConnection(URL, USER, PASSWORD);
         return connection;
     }
     public void closeConnection() throws SQLException {
@@ -62,8 +58,6 @@ class MyUtils {
                 "`projectName` VARCHAR(45) NULL," +
                 "`directionId` INT NOT NULL," +
                 "PRIMARY KEY (`id`, `directionId`)," +
-                "INDEX `fk_Projects_Directions_idx` (`directionId` ASC) VISIBLE," +
-                "CONSTRAINT `fk_Projects_Directions`" +
                 "  FOREIGN KEY (`directionId`)" +
                 "  REFERENCES `Directions` (`id`)" +
                 "  ON DELETE NO ACTION" +
@@ -76,14 +70,10 @@ class MyUtils {
                 "`projectId` INT NOT NULL," +
                 "`roleId` INT NOT NULL," +
                 "PRIMARY KEY (`id`, `projectId`, `roleId`)," +
-                "INDEX `fk_Employee_Projects1_idx` (`projectId` ASC) VISIBLE," +
-                "INDEX `fk_Employee_Roles1_idx` (`roleId` ASC) VISIBLE," +
-                "CONSTRAINT `fk_Employee_Projects1`" +
                 "  FOREIGN KEY (`projectId`)" +
                 "  REFERENCES `Projects` (`id`)" +
                 "  ON DELETE NO ACTION" +
                 "  ON UPDATE NO ACTION," +
-                "CONSTRAINT `fk_Employee_Roles1`" +
                 "  FOREIGN KEY (`roleId`)" +
                 "  REFERENCES `Roles` (`id`)" +
                 "  ON DELETE NO ACTION" +
@@ -94,18 +84,18 @@ class MyUtils {
     }
     public void insertTableRoles(String roleName) throws SQLException {
         if(getRoleId(roleName) == 0)
-            myExecute(String.format("INSERT INTO Roles(roleName) VALUE('%s')", roleName));
+            myExecute(String.format("INSERT INTO Roles(roleName) VALUES('%s')", roleName));
     }
     public void insertTableDirections(String directionName) throws SQLException {
         if(getDirectionId(directionName) == 0)
-            myExecute(String.format("INSERT INTO Directions(directionName) VALUE('%s')", directionName));
+            myExecute(String.format("INSERT INTO Directions(directionName) VALUES('%s')", directionName));
     }
     public void insertTableProjects(String projectName, String directionName) throws SQLException {
         if(getProjectId(projectName) == 0)
-            myExecute(String.format("INSERT INTO Projects(projectName, directionId) VALUE(" + "'%s', %d)", projectName, getDirectionId(directionName)));
+            myExecute(String.format("INSERT INTO Projects(projectName, directionId) VALUES(" + "'%s', %d)", projectName, getDirectionId(directionName)));
     }
     public void insertTableEmployee(String firstName, String roleName, String projectName) throws SQLException {
-            myExecute(String.format("INSERT INTO Employee(firstName, roleId, projectId) VALUE('%s', %d, %d)", firstName, getRoleId(roleName), getProjectId(projectName)));
+            myExecute(String.format("INSERT INTO Employee(firstName, roleId, projectId) VALUES('%s', %d, %d)", firstName, getRoleId(roleName), getProjectId(projectName)));
     }
     public int getRoleId(String roleName) throws SQLException {
         return getId(getAllRoles(), roleName);

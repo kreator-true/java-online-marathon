@@ -8,7 +8,9 @@ class Main {
         myUtils.createConnection();
         myUtils.createStatement();
 
-        /*myUtils.dropTable("Employee");
+
+
+        myUtils.dropTable("Employee");
         myUtils.dropTable("Projects");
         myUtils.dropTable("Roles");
         myUtils.dropTable("Directions");
@@ -68,7 +70,7 @@ class Main {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        });*/
+        });
 
         myUtils.getAllJavaDevelopers().stream().forEach(System.out::println);
         System.out.println("________________");
