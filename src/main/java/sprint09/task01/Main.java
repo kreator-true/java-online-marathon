@@ -1,6 +1,5 @@
 package sprint09.task01;
 
-import junit.runner.BaseTestRunner;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
